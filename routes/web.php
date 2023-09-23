@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\DiscountController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,8 +17,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [ProductController::class, 'index'])->name('products.index');
+
+Route::prefix('cart')->group(function () {
+    Route::get('/', [CartController::class, 'show'])->name('cart.show');
+    Route::post('/', [CartController::class, 'addItem'])->name('cart.add');
+    Route::patch('/{item}', [CartController::class, 'updateQuantity'])->name('cart.update');
+    Route::delete('/{item}', [CartController::class, 'destroy'])->name('cart.destroy');
+    Route::post('/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
+});
+
+Route::prefix('discounts')->group(function () {
+   Route::get('/', [DiscountController::class, 'index'])->name('discounts.index');
 });
 
 Route::get('/dashboard', function () {
