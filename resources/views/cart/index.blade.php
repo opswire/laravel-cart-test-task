@@ -72,6 +72,9 @@
             <button type="submit" class="underline font-bold">Apply Discount</button>
         </form>
         <form action="{{ route('cart.checkout') }}" method="POST">
+            @csrf
+            <input type="hidden" name="totalAmount" value="{{ $totalAmount }}">
+            <input type="hidden" name="items" value="{{ $cartItems }}">
             <button type="submit" class="underline font-bold">Checkout</button>
         </form>
     </div>
