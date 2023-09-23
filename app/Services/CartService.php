@@ -5,7 +5,6 @@ namespace App\Services;
 
 use App\Models\Cart;
 use App\Models\CartItem;
-use App\Models\Discount;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
