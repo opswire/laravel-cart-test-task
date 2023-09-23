@@ -14,14 +14,19 @@
     <div class="p-4 border">
         <div>
             <a href="{{ route('products.index') }}" class="font-mono underline">Catalog</a>
-            <a href="{{ route('products.index') }}" class="font-mono underline ml-4">Cart</a>
-        <div>
+            <a href="{{ route('cart.show') }}" class="font-mono underline ml-4">Cart</a>
+        <div class="text-right">
             @if(!Auth::check())
                 <a href="{{ route('login') }}" class="font-mono underline">Login</a>
                 <span class="mx-2">|</span>
                 <a href="{{ route('register') }}" class="font-mono underline">Register</a>
             @else
-                <span class="mx-2">Hello {{ Auth::user()->name }}, </span>
+                <span>Hello
+                    <a href="{{ route('profile.edit') }}">
+                        <span class="mx-2 font-bold underline">{{ Auth::user()->name }}</span>
+                        <span class="mx-2">|</span>
+                    </a>
+                </span>
                 <form method="POST" action="{{ route('logout') }}" class="inline">
                     @csrf
                     <button type="submit" class="font-mono underline">Logout</button>
