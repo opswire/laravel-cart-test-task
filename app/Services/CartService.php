@@ -5,6 +5,7 @@ namespace App\Services;
 
 use App\Models\Cart;
 use App\Models\CartItem;
+use App\Models\Discount;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -16,6 +17,13 @@ class CartService
 {
     const SESSION_COLUMN_TITLE = 'session_id';
     const SESSION_EXPIRES_AT = 60 * 24 * 30;
+
+    private DiscountService $discountService;
+
+    public function __construct(DiscountService $discountService)
+    {
+        $this->discountService = $discountService;
+    }
 
     public function findCartOrCreate(): Cart
     {
@@ -49,12 +57,16 @@ class CartService
         return $sessionId;
     }
 
-    public function calculateTotalAmount(Collection $cartItems): float
+    public function calculateTotalAmount(Collection $cartItems, string|null $discountName): float
     {
         $totalAmount = 0;
 
         foreach ($cartItems as $cartItem) {
             $totalAmount += $cartItem->product->price * $cartItem->quantity;
+        }
+
+        if(!empty($discountName)) {
+            $totalAmount = $this->discountService->calculateTotalAmountWithDiscounts($cartItems, $totalAmount, $discountName);
         }
 
         return $totalAmount;

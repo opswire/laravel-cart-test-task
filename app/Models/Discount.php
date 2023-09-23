@@ -9,14 +9,14 @@ use Illuminate\Database\Eloquent\Model;
 class Discount extends Model
 {
     const TYPE_PRODUCT_DISCOUNT = 'product';
-    const TYPE_ORDER_DISCOUNT = 'total';
+    const TYPE_TOTAL_DISCOUNT = 'total';
     const TYPE_COMBINED_DISCOUNT = 'combined';
 
     public static function getDiscountTypes(): array
     {
         return [
             self::TYPE_PRODUCT_DISCOUNT,
-            self::TYPE_ORDER_DISCOUNT,
+            self::TYPE_TOTAL_DISCOUNT,
             self::TYPE_COMBINED_DISCOUNT,
         ];
     }

@@ -19,12 +19,12 @@ class CartController extends Controller
         $this->cartService = $cartService;
     }
 
-    public function show(): View
+    public function show(Request $request): View
     {
         $cart = $this->cartService->findCartOrCreate();
 
         $cartItems = $cart->items()->get();
-        $totalAmount = $this->cartService->calculateTotalAmount($cartItems);
+        $totalAmount = $this->cartService->calculateTotalAmount($cartItems, $request->discount);
 
         return view('cart.index')
             ->with('cartItems', $cartItems)

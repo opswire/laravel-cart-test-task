@@ -15,6 +15,7 @@
         <div>
             <a href="{{ route('products.index') }}" class="font-mono underline">Catalog</a>
             <a href="{{ route('cart.show') }}" class="font-mono underline ml-4">Cart</a>
+            <a href="{{ route('discounts.index') }}" class="font-mono underline ml-4">Discounts</a>
         <div class="text-right">
             @if(!Auth::check())
                 <a href="{{ route('login') }}" class="font-mono underline">Login</a>
