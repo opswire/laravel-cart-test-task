@@ -14,16 +14,18 @@ class DiscountService
 
         $discount = Discount::firstWhere('name', $discountName);
 
-        switch ($discount->type) {
-            case Discount::TYPE_PRODUCT_DISCOUNT:
-                $totalAmount = $this->calculateProductDiscount($cartItems, $totalAmount, $discount);
-                break;
-            case Discount::TYPE_TOTAL_DISCOUNT:
-                $totalAmount = $this->calculateTotalDiscount($totalAmount, $discount);
-                break;
-            case Discount::TYPE_COMBINED_DISCOUNT: // TODO: применять скидку ко всему заказу или только к товару?
-                $totalAmount = $this->calculateCombinedDiscount($cartItems, $totalAmount, $discount);
-                break;
+        if($discount) {
+            switch ($discount->type) {
+                case Discount::TYPE_PRODUCT_DISCOUNT:
+                    $totalAmount = $this->calculateProductDiscount($cartItems, $totalAmount, $discount);
+                    break;
+                case Discount::TYPE_TOTAL_DISCOUNT:
+                    $totalAmount = $this->calculateTotalDiscount($totalAmount, $discount);
+                    break;
+                case Discount::TYPE_COMBINED_DISCOUNT: // TODO: применять скидку ко всему заказу или только к товару?
+                    $totalAmount = $this->calculateCombinedDiscount($cartItems, $totalAmount, $discount);
+                    break;
+            }
         }
 
         return $totalAmount;

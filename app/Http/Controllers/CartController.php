@@ -67,8 +67,6 @@ class CartController extends Controller
 
     public function checkout(Request $request): RedirectResponse
     {
-        $user = Auth::user();
-
         $this->checkoutService->createOrder($request->totalAmount);
 
         return back()

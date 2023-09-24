@@ -22,7 +22,7 @@ Route::get('/', [ProductController::class, 'index'])->name('products.index');
 Route::prefix('cart')->group(function () {
     Route::get('/', [CartController::class, 'show'])->name('cart.show');
     Route::post('/', [CartController::class, 'addItem'])->name('cart.add');
-    Route::patch('/{item}', [CartController::class, 'updateQuantity'])->name('cart.update');
+    Route::put('/{item}', [CartController::class, 'updateQuantity'])->name('cart.update');
     Route::delete('/{item}', [CartController::class, 'destroy'])->name('cart.destroy');
     Route::post('/checkout', [CartController::class, 'checkout'])->name('cart.checkout')
                                                                  ->middleware(['auth']);
