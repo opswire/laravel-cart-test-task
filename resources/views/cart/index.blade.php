@@ -39,7 +39,7 @@
                     <td class="pl-16">
                         <form action="{{ route('cart.update', ['item' => $item]) }}" method="POST">
                             @csrf
-                            @method('PATCH')
+                            @method('PUT')
                             <label> Quantity:
                                 <input type="number" name="quantity" value="{{ $item->quantity }}">
                             </label>
