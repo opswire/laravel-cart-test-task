@@ -37,6 +37,10 @@ class CartService
                     ['user_id' => $user->id],
                 );
             }
+            if (!$cart->user_id) {
+                $cart->user_id = $user->id;
+                $cart->save();
+            }
         } else {
             $cart = Cart::firstOrCreate([self::SESSION_COLUMN_TITLE => $sessionId]);
         }
